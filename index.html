@@ -473,13 +473,7 @@
         </nav>
     </div>
 
-    <!-- 
-        =====================================================================
-        ====== অ্যাড নেটওয়ার্কের SDK বসানোর জায়গা (প্রথম অংশ) ======
-        =====================================================================
-        পুরোনো কোড পরিবর্তন করে নতুন SDK যোগ করা হয়েছে।
-    -->
-    <script src='//libtl.com/sdk.js' data-zone='10016395' data-sdk='show_10016395'></script>
+    <!-- অ্যাড নেটওয়ার্কের SDK স্ক্রিপ্ট ট্যাগটি এখান থেকে সরিয়ে দেওয়া হয়েছে -->
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -583,39 +577,16 @@
                     return;
                 }
 
-                watchAdBtn.disabled = true;
-
-                // --- অ্যাড নেটওয়ার্কের কোড কল করার জায়গা (দ্বিতীয় অংশ) ---
-                // ======================================================================
-                // পুরোনো ফাংশন পরিবর্তন করে নতুন rewarded popup ফাংশন যোগ করা হয়েছে।
-                // ======================================================================
-                if (typeof show_10016395 === 'function') {
-                    show_10016395('pop').then(() => {
-                        // user watch ad till the end or close it in interstitial format
-                        // your code to reward user for rewarded format
-                        let earnings = parseFloat(localStorage.getItem('earnings')) + AD_REWARD;
-                        let currentAdsWatched = parseInt(localStorage.getItem('adsWatched')) + 1;
-                        
-                        localStorage.setItem('earnings', earnings.toString());
-                        localStorage.setItem('adsWatched', currentAdsWatched.toString());
-                        
-                        tg.showAlert(`বিজ্ঞাপনটি দেখার জন্য আপনি BDT ${AD_REWARD.toFixed(2)} পেয়েছেন!`);
-                    }).catch((e) => {
-                        // user get error during playing ad
-                        // do nothing or whatever you want
-                        tg.showAlert('বিজ্ঞাপনটি দেখাতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
-                    }).finally(() => {
-                        updateUI();
-                    });
-                } else {
-                    // Fallback for testing in browser without Telegram
-                    let earnings = parseFloat(localStorage.getItem('earnings')) + AD_REWARD;
-                    let currentAdsWatched = parseInt(localStorage.getItem('adsWatched')) + 1;
-                    localStorage.setItem('earnings', earnings.toString());
-                    localStorage.setItem('adsWatched', currentAdsWatched.toString());
-                    alert(`(Test Mode) You earned BDT ${AD_REWARD.toFixed(2)}!`);
-                    updateUI();
-                }
+                // বিজ্ঞাপন নেটওয়ার্কের কোড সরানো হয়েছে। এখন সরাসরি রিওয়ার্ড দেওয়া হবে।
+                let earnings = parseFloat(localStorage.getItem('earnings')) + AD_REWARD;
+                let currentAdsWatched = parseInt(localStorage.getItem('adsWatched')) + 1;
+                
+                localStorage.setItem('earnings', earnings.toString());
+                localStorage.setItem('adsWatched', currentAdsWatched.toString());
+                
+                tg.showAlert(`আপনি BDT ${AD_REWARD.toFixed(2)} পেয়েছেন!`);
+                
+                updateUI(); // নতুন তথ্য দিয়ে UI আপডেট করুন
             });
 
             withdrawForm.addEventListener('submit', (e) => {
